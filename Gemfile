@@ -4,8 +4,8 @@ ruby "3.3.0"
 
 gem "bootsnap", require: false
 gem "httparty", "~> 0.22.0"
+gem "nokogiri"
 gem "oj", "~> 3.16"
-gem "pg", "~> 1.1"
 gem "puma", ">= 5.0"
 gem "rails", "~> 7.1.3", ">= 7.1.3.2"
 gem "service_actor-rails", "~> 1.0"

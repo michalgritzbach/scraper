@@ -40,14 +40,14 @@ RSpec.describe "/data" do
       context "with missing parameters" do
         let(:fields) { "invalid" }
 
-        fit "returns error response" do
+        it "returns error response" do
           post "/data", params: {url:, fields:}
 
           expect(response).to have_http_status(:bad_request)
         end
       end
 
-      fcontext "with non-200 URL" do
+      context "with non-200 URL" do
         let(:url) { "https://www.alza.cz/nonexistent" }
 
         it "returns error response" do

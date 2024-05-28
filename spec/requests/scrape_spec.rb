@@ -6,7 +6,8 @@ RSpec.describe "/data" do
     {
       price: ".price-box__price",
       rating_count: ".ratingCount",
-      rating_value: ".ratingValue"
+      rating_value: ".ratingValue",
+      meta: ["keywords"]
     }
   }
 
@@ -21,6 +22,7 @@ RSpec.describe "/data" do
         expect(json_response[:price]).to eq("20 890,-")
         expect(json_response[:rating_count]).to eq("7 hodnocení")
         expect(json_response[:rating_value]).to eq("4,9")
+        expect(json_response[:meta][:keywords]).to eq("AEG,7000,ProSteam®,LFR73964CC,Automatické pračky,Automatické pračky AEG,Chytré pračky,Chytré pračky AEG")
       end
     end
 

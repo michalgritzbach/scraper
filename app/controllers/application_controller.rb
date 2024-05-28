@@ -1,5 +1,7 @@
 class ApplicationController < ActionController::API
-  rescue_from ActionController::ParameterMissing, with: :render_bad_request
+  wrap_parameters false
+
+  rescue_from ActionController::ParameterMissing, ArgumentError, with: :render_bad_request
 
   private
 

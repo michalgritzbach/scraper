@@ -40,7 +40,19 @@ RSpec.describe FetchFields do
         end
       end
 
-      fcontext "with a request for meta fields" do
+      context "with invalid selector" do
+        let(:fields) {
+          {
+            something: "totally invalid selector+&"
+          }
+        }
+
+        it "fails" do
+          expect(fetch_fields).to be_failure
+        end
+      end
+
+      context "with a request for meta fields" do
         let(:fields) {
           {
             meta: ["keywords", "twitter:image"]
@@ -51,6 +63,31 @@ RSpec.describe FetchFields do
           expect(fetch_fields).to be_success
           expect(fetch_fields.result_set[:meta]["keywords"]).to eq("AEG,7000,ProSteam®,LFR73964CC,Automatické pračky,Automatické pračky AEG,Chytré pračky,Chytré pračky AEG")
           expect(fetch_fields.result_set[:meta]["twitter:image"]).to eq("https://image.alza.cz/products/AEGPR065/AEGPR065.jpg?width=360&height=360")
+        end
+
+        context "with nonexistent meta tags" do
+          let(:fields) {
+            {
+              meta: ["nonexistent"]
+            }
+          }
+
+          it "passes with empty values" do
+            expect(fetch_fields).to be_success
+            expect(fetch_fields.result_set[:meta]["nonexistent"]).to be_blank
+          end
+        end
+
+        context "with invalid meta tags" do
+          let(:fields) {
+            {
+              meta: ["invalid' selector"]
+            }
+          }
+
+          it "fails" do
+            expect(fetch_fields).to be_failure
+          end
         end
       end
     end
